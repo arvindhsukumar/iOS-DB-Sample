@@ -7,14 +7,46 @@
 
 import SwiftUI
 
+//@main
+//struct DB_SampleApp: App {
+//    let persistenceController = PersistenceController.shared
+//
+//    var body: some Scene {
+//        WindowGroup {
+//          NavigationStack {
+//            ContentView()
+//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+//          }
+//        }
+//    }
+//}
+
 @main
 struct DB_SampleApp: App {
-    let persistenceController = PersistenceController.shared
+    let persistenceController = MainStore.instance
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+          TabView {
+            NavigationStack {
+              ListView()
+            }
+            .tabItem {
+              Text("CoreData")
+            }
+            
+            NavigationStack {
+              RealmListView()
+            }
+            .tabItem {
+              Text("Realm")
+            }
+          }
+          .onAppear {
+            MainStore.instance
+            RealmStore.instance
+          }
+            
         }
     }
 }

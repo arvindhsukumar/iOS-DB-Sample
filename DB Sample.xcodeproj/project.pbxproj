@@ -16,6 +16,15 @@
 		D4D577EE2A651AB300BE1150 /* DB_SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D577ED2A651AB300BE1150 /* DB_SampleTests.swift */; };
 		D4D577F82A651AB300BE1150 /* DB_SampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D577F72A651AB300BE1150 /* DB_SampleUITests.swift */; };
 		D4D577FA2A651AB300BE1150 /* DB_SampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D577F92A651AB300BE1150 /* DB_SampleUITestsLaunchTests.swift */; };
+		D4D578072A651CF800BE1150 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D578062A651CF800BE1150 /* ListView.swift */; };
+		D4D5780A2A651D9C00BE1150 /* EAMKit in Frameworks */ = {isa = PBXBuildFile; productRef = D4D578092A651D9C00BE1150 /* EAMKit */; };
+		D4D5780D2A651EDA00BE1150 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = D4D5780C2A651EDA00BE1150 /* Realm */; };
+		D4D5780F2A651EDA00BE1150 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D4D5780E2A651EDA00BE1150 /* RealmSwift */; };
+		D4D578142A65238400BE1150 /* MainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D578132A65238400BE1150 /* MainStore.swift */; };
+		D4D578172A6523E300BE1150 /* RealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D578162A6523E300BE1150 /* RealmStore.swift */; };
+		D4D578192A652BA000BE1150 /* FetchedResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D578182A652BA000BE1150 /* FetchedResults.swift */; };
+		D4D5781B2A654DFC00BE1150 /* RealmListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D5781A2A654DFC00BE1150 /* RealmListView.swift */; };
+		D4D5781D2A65501C00BE1150 /* RealmItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D5781C2A65501C00BE1150 /* RealmItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +57,13 @@
 		D4D577F32A651AB300BE1150 /* DB SampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DB SampleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4D577F72A651AB300BE1150 /* DB_SampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DB_SampleUITests.swift; sourceTree = "<group>"; };
 		D4D577F92A651AB300BE1150 /* DB_SampleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DB_SampleUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D4D578062A651CF800BE1150 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		D4D578102A6521FA00BE1150 /* eam360-ui-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "eam360-ui-ios"; path = "../../EAM/eam360-ui-ios"; sourceTree = "<group>"; };
+		D4D578132A65238400BE1150 /* MainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStore.swift; sourceTree = "<group>"; };
+		D4D578162A6523E300BE1150 /* RealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmStore.swift; sourceTree = "<group>"; };
+		D4D578182A652BA000BE1150 /* FetchedResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedResults.swift; sourceTree = "<group>"; };
+		D4D5781A2A654DFC00BE1150 /* RealmListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmListView.swift; sourceTree = "<group>"; };
+		D4D5781C2A65501C00BE1150 /* RealmItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +71,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4D5780F2A651EDA00BE1150 /* RealmSwift in Frameworks */,
+				D4D5780D2A651EDA00BE1150 /* Realm in Frameworks */,
+				D4D5780A2A651D9C00BE1150 /* EAMKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +97,7 @@
 		D4D577CB2A651AB200BE1150 = {
 			isa = PBXGroup;
 			children = (
+				D4D578102A6521FA00BE1150 /* eam360-ui-ios */,
 				D4D577D62A651AB200BE1150 /* DB Sample */,
 				D4D577EC2A651AB300BE1150 /* DB SampleTests */,
 				D4D577F62A651AB300BE1150 /* DB SampleUITests */,
@@ -98,12 +118,15 @@
 		D4D577D62A651AB200BE1150 /* DB Sample */ = {
 			isa = PBXGroup;
 			children = (
+				D4D578112A65235E00BE1150 /* Store */,
 				D4D577D72A651AB200BE1150 /* DB_SampleApp.swift */,
 				D4D577D92A651AB200BE1150 /* ContentView.swift */,
 				D4D577DB2A651AB300BE1150 /* Assets.xcassets */,
 				D4D577E02A651AB300BE1150 /* Persistence.swift */,
 				D4D577E22A651AB300BE1150 /* DB_Sample.xcdatamodeld */,
 				D4D577DD2A651AB300BE1150 /* Preview Content */,
+				D4D578062A651CF800BE1150 /* ListView.swift */,
+				D4D5781A2A654DFC00BE1150 /* RealmListView.swift */,
 			);
 			path = "DB Sample";
 			sourceTree = "<group>";
@@ -133,6 +156,33 @@
 			path = "DB SampleUITests";
 			sourceTree = "<group>";
 		};
+		D4D578112A65235E00BE1150 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				D4D578152A6523DA00BE1150 /* Realm */,
+				D4D578122A65236800BE1150 /* CoreData */,
+				D4D578182A652BA000BE1150 /* FetchedResults.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		D4D578122A65236800BE1150 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				D4D578132A65238400BE1150 /* MainStore.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		D4D578152A6523DA00BE1150 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				D4D578162A6523E300BE1150 /* RealmStore.swift */,
+				D4D5781C2A65501C00BE1150 /* RealmItem.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -149,6 +199,11 @@
 			dependencies = (
 			);
 			name = "DB Sample";
+			packageProductDependencies = (
+				D4D578092A651D9C00BE1150 /* EAMKit */,
+				D4D5780C2A651EDA00BE1150 /* Realm */,
+				D4D5780E2A651EDA00BE1150 /* RealmSwift */,
+			);
 			productName = "DB Sample";
 			productReference = D4D577D42A651AB200BE1150 /* DB Sample.app */;
 			productType = "com.apple.product-type.application";
@@ -221,6 +276,10 @@
 				Base,
 			);
 			mainGroup = D4D577CB2A651AB200BE1150;
+			packageReferences = (
+				D4D578082A651D9C00BE1150 /* XCRemoteSwiftPackageReference "eam360-ui-ios" */,
+				D4D5780B2A651EDA00BE1150 /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			productRefGroup = D4D577D52A651AB200BE1150 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -263,9 +322,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4D578172A6523E300BE1150 /* RealmStore.swift in Sources */,
 				D4D577E12A651AB300BE1150 /* Persistence.swift in Sources */,
+				D4D5781D2A65501C00BE1150 /* RealmItem.swift in Sources */,
 				D4D577E42A651AB300BE1150 /* DB_Sample.xcdatamodeld in Sources */,
+				D4D578072A651CF800BE1150 /* ListView.swift in Sources */,
+				D4D5781B2A654DFC00BE1150 /* RealmListView.swift in Sources */,
+				D4D578192A652BA000BE1150 /* FetchedResults.swift in Sources */,
 				D4D577DA2A651AB200BE1150 /* ContentView.swift in Sources */,
+				D4D578142A65238400BE1150 /* MainStore.swift in Sources */,
 				D4D577D82A651AB200BE1150 /* DB_SampleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -585,6 +650,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D4D578082A651D9C00BE1150 /* XCRemoteSwiftPackageReference "eam360-ui-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tarkalabs/eam360-ui-ios";
+			requirement = {
+				branch = arvindh/database;
+				kind = branch;
+			};
+		};
+		D4D5780B2A651EDA00BE1150 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.41.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D4D578092A651D9C00BE1150 /* EAMKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4D578082A651D9C00BE1150 /* XCRemoteSwiftPackageReference "eam360-ui-ios" */;
+			productName = EAMKit;
+		};
+		D4D5780C2A651EDA00BE1150 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4D5780B2A651EDA00BE1150 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		D4D5780E2A651EDA00BE1150 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4D5780B2A651EDA00BE1150 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		D4D577E22A651AB300BE1150 /* DB_Sample.xcdatamodeld */ = {
