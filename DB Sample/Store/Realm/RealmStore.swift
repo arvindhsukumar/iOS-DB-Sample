@@ -32,7 +32,7 @@ public class RealmStore: Store {
     case main, background
   }
   
-  static let instance = RealmStore()
+  static public let instance = RealmStore()
   
   public func context(for contextType: ContextType) -> RealmSwift.Realm {
     switch contextType {

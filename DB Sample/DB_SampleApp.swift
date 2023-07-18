@@ -29,7 +29,7 @@ struct DB_SampleApp: App {
         WindowGroup {
           TabView {
             NavigationStack {
-              ListView()
+              R_D_Main_ListView()
             }
             .tabItem {
               Text("CoreData")
@@ -45,6 +45,7 @@ struct DB_SampleApp: App {
           .onAppear {
             MainStore.instance
             RealmStore.instance
+            DBManager.shared.defaultDB = CD_DBManager()
           }
             
         }

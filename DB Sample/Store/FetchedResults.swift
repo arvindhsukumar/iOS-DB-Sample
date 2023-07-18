@@ -12,6 +12,7 @@ import CoreData
 import RealmSwift
 
 public final class FetchedResults<Object: NSManagedObject>: NSObject, FetchableResults, NSFetchedResultsControllerDelegate {
+  
   public typealias FetchedResults = NSFetchedResultsController<Object>
   public typealias Store = MainStore
   
@@ -32,13 +33,18 @@ public final class FetchedResults<Object: NSManagedObject>: NSObject, FetchableR
     setupOnChange()
   }
   
-  public init(store: MainStore = MainStore.instance, contextType: MainStore.ContextType, predicate: NSPredicate?, sort: Object.Sort?) {
+  public init(
+    store: MainStore = MainStore.instance,
+    contextType: MainStore.ContextType,
+    predicate: NSPredicate? = nil,
+    sort: Object.Sort? = nil) {
+      
     let fetchRequest = NSFetchRequest<Object>(entityName: Object.entityName)
     fetchRequest.includesPendingChanges = true
     fetchRequest.fetchBatchSize = MainStore.defaultBatchSize
       
     fetchRequest.predicate = predicate
-    fetchRequest.sortDescriptors = sort
+    fetchRequest.sortDescriptors = sort ?? []
     
     self.fetchedResults = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: store.context(for: contextType), sectionNameKeyPath: nil, cacheName: nil)
    
@@ -70,6 +76,7 @@ public final class FetchedResults<Object: NSManagedObject>: NSObject, FetchableR
 
 
 public final class RealmFetchedResults<Object: RealmSwift.Object>: NSObject, FetchableResults {
+  
   public typealias FetchedResults = Results<Object>
   public typealias Store = RealmStore
   
@@ -90,7 +97,13 @@ public final class RealmFetchedResults<Object: RealmSwift.Object>: NSObject, Fet
     setupOnChange()
   }
   
-  public init(store: RealmStore, contextType: RealmStore.ContextType, predicate: NSPredicate?, sort: Object.Sort?) {
+  public init(
+    store: RealmStore = RealmStore.instance,
+    contextType: RealmStore.ContextType,
+    predicate: NSPredicate? = nil,
+    sort: Object.Sort? = nil) {
+      
+    let store = store ?? .instance
     fetchedResults = store.context(for: contextType).objects(Object.self)
     
     if let sort {

@@ -14,7 +14,7 @@ struct ListView: View {
   
   var body: some View {
     List {
-      ForEach(viewModel.items) { item in
+      ForEach(viewModel.items, id: \.timestamp) { item in
         Text(item.timestamp?.formatted(date: .complete, time: .complete) ?? "Date")
       }
     }
@@ -31,8 +31,10 @@ struct ListView: View {
 }
 
 class ListViewModel: ObservableObject {
+  
   private var fetchedItems: DB_Sample.FetchedResults<Item>?
-  @Published var items: [Item] = []
+  
+  @Published var items: [any ItemProtocol] = []
   var cancelBag = Set<AnyCancellable>()
   
   init() {
@@ -64,16 +66,9 @@ struct ListView_Previews: PreviewProvider {
   }
 }
 
-struct ItemWrapper {
-  var timestamp: Date
-  
-  init(item: ItemProtocol) {
-    self.timestamp = item.timestamp ?? Date()
-  }
-}
-
 protocol ItemProtocol {
-  var timestamp: Date? {get}
+  var timestamp: Date? { get }
 }
 
 extension Item: ItemProtocol {}
+extension RealmItem: ItemProtocol {}
