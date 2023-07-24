@@ -38,15 +38,11 @@ class ListViewModel: ObservableObject {
   init() {
     let store = MainStore.instance
     
-    store.context(for: .background).perform { [weak self] in
-      guard let self else {return}
-      
-      fetchedItems = DB_Sample.FetchedResults<Item>(contextType: .background, predicate: nil, sort: [NSSortDescriptor(key: "timestamp", ascending: false)]) {
-        objects in
-        let items = objects.map({ ItemWrapper(item: $0)})
-        DispatchQueue.main.async {
-          self.items = items
-        }
+    fetchedItems = DB_Sample.FetchedResults<Item>(contextType: .background, predicate: nil, sort: [NSSortDescriptor(key: "timestamp", ascending: false)]) {
+      objects in
+      let items = objects.map({ ItemWrapper(item: $0)})
+      DispatchQueue.main.async {
+        self.items = items
       }
     }
   }

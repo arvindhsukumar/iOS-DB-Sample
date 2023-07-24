@@ -51,7 +51,9 @@ public final class FetchedResults<Object: NSManagedObject>: NSObject, FetchableR
     try? fetchedResults.performFetch()
     
     defer {
-      self.objects = fetchedResults.fetchedObjects ?? []
+      context.perform {
+        self.objects = self.fetchedResults.fetchedObjects ?? []
+      }
     }
   }
     
