@@ -14,7 +14,7 @@ struct ListView: View {
   
   var body: some View {
     List {
-      ForEach(viewModel.items) { item in
+      ForEach(viewModel.items, id: \.timestamp) { item in
         Text(item.timestamp?.formatted(date: .complete, time: .complete) ?? "Date")
       }
     }
@@ -32,20 +32,23 @@ struct ListView: View {
 
 class ListViewModel: ObservableObject {
   private var fetchedItems: DB_Sample.FetchedResults<Item>?
-  @Published var items: [Item] = []
+  @Published var items: [ItemProtocol] = []
   var cancelBag = Set<AnyCancellable>()
   
   init() {
     let store = MainStore.instance
-    fetchedItems = DB_Sample.FetchedResults<Item>(contextType: .main, predicate: nil, sort: [NSSortDescriptor(key: "timestamp", ascending: false)])
-   
-    items = fetchedItems?.objects ?? []
-    fetchedItems?
-      .onChange
-      .sink(receiveValue: { items in
-        self.items = items
-      })
-      .store(in: &cancelBag)
+    
+    store.context(for: .background).perform { [weak self] in
+      guard let self else {return}
+      
+      fetchedItems = DB_Sample.FetchedResults<Item>(contextType: .background, predicate: nil, sort: [NSSortDescriptor(key: "timestamp", ascending: false)]) {
+        objects in
+        let items = objects.map({ ItemWrapper(item: $0)})
+        DispatchQueue.main.async {
+          self.items = items
+        }
+      }
+    }
   }
   
   func addItem() {
@@ -64,8 +67,8 @@ struct ListView_Previews: PreviewProvider {
   }
 }
 
-struct ItemWrapper {
-  var timestamp: Date
+struct ItemWrapper: ItemProtocol {
+  var timestamp: Date?
   
   init(item: ItemProtocol) {
     self.timestamp = item.timestamp ?? Date()

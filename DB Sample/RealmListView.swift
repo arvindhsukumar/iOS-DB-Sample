@@ -37,14 +37,9 @@ class RealmListViewModel: ObservableObject {
   
   init() {
     let store = RealmStore.instance
-    fetchedItems = RealmFetchedResults<RealmItem>(store: store, contextType: .main, predicate: nil, sort: RealmSwift.SortDescriptor(keyPath: "timestamp", ascending: false))
-
-    fetchedItems?
-      .onChange
-      .sink(receiveValue: { items in
-        self.items = items
-      })
-      .store(in: &cancelBag)
+    fetchedItems = RealmFetchedResults<RealmItem>(store: store, contextType: .main, predicate: nil, sort: RealmSwift.SortDescriptor(keyPath: "timestamp", ascending: false)) { objects in
+      self.items = objects
+    }
   }
   
   func addItem() {

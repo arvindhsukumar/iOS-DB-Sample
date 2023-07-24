@@ -18,21 +18,22 @@ public final class FetchedResults<Object: NSManagedObject>: NSObject, FetchableR
   public var fetchedResults: NSFetchedResultsController<Object>
   public var objects: [Object] = [] {
     didSet {
-      onChange.send(objects)
+      onChange(objects)
     }
   }
     
-  public var onChange = PassthroughSubject<[Object], Never>()
-    
-  private var changeSubscription: AnyCancellable?
-    
-  public init(results: NSFetchedResultsController<Object>) {
+  public var onChange: ([Object]) -> ()
+        
+  public init(results: NSFetchedResultsController<Object>, onChange: @escaping ([Object]) -> ()) {
     self.fetchedResults = results
+    self.onChange = onChange
     super.init()
     setupOnChange()
   }
   
-  public init(store: MainStore = MainStore.instance, contextType: MainStore.ContextType, predicate: NSPredicate?, sort: Object.Sort?) {
+  public init(store: MainStore = MainStore.instance, contextType: MainStore.ContextType, predicate: NSPredicate?, sort: Object.Sort?, onChange: @escaping ([Object]) -> ()) {
+    self.onChange = onChange
+
     let fetchRequest = NSFetchRequest<Object>(entityName: Object.entityName)
     fetchRequest.includesPendingChanges = true
     fetchRequest.fetchBatchSize = MainStore.defaultBatchSize
@@ -40,13 +41,18 @@ public final class FetchedResults<Object: NSManagedObject>: NSObject, FetchableR
     fetchRequest.predicate = predicate
     fetchRequest.sortDescriptors = sort
     
-    self.fetchedResults = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: store.context(for: contextType), sectionNameKeyPath: nil, cacheName: nil)
-   
-    try! fetchedResults.performFetch()
-    self.objects = fetchedResults.fetchedObjects ?? []
+    let context = store.context(for: contextType)
     
+    self.fetchedResults = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+       
     super.init()
+   
     setupOnChange()
+    try? fetchedResults.performFetch()
+    
+    defer {
+      self.objects = fetchedResults.fetchedObjects ?? []
+    }
   }
     
   private func setupOnChange() {
@@ -70,33 +76,35 @@ public final class FetchedResults<Object: NSManagedObject>: NSObject, FetchableR
 
 
 public final class RealmFetchedResults<Object: RealmSwift.Object>: NSObject, FetchableResults {
+  public var onChange: ([Object]) -> ()
+  
   public typealias FetchedResults = Results<Object>
   public typealias Store = RealmStore
   
   public var fetchedResults: Results<Object>
   public var objects: [Object] = [] {
     didSet {
-      onChange.send(objects)
+      onChange(objects)
     }
   }
     
-  public var onChange = PassthroughSubject<[Object], Never>()
-    
   private var changeSubscription: RealmSwift.NotificationToken?
     
-  public init(results: Results<Object>) {
+  public init(results: Results<Object>, onChange: @escaping ([Object]) -> ()) {
     self.fetchedResults = results
+    self.onChange = onChange
     super.init()
     setupOnChange()
   }
   
-  public init(store: RealmStore, contextType: RealmStore.ContextType, predicate: NSPredicate?, sort: Object.Sort?) {
+  public init(store: RealmStore, contextType: RealmStore.ContextType, predicate: NSPredicate?, sort: Object.Sort?, onChange: @escaping ([Object]) -> ()) {
     fetchedResults = store.context(for: contextType).objects(Object.self)
     
     if let sort {
         fetchedResults = fetchedResults.sorted(byKeyPath: sort.keyPath, ascending: sort.ascending)
     }
     
+    self.onChange = onChange
     self.objects = Array(fetchedResults)
 
     super.init()
